@@ -12,9 +12,9 @@ using System;
 using System.Reflection;
 
 [assembly: System.Reflection.AssemblyCompanyAttribute("NaiveBayesProject")]
-[assembly: System.Reflection.AssemblyConfigurationAttribute("Debug")]
+[assembly: System.Reflection.AssemblyConfigurationAttribute("Release")]
 [assembly: System.Reflection.AssemblyFileVersionAttribute("1.0.0.0")]
-[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+0c92fbf873b265f52fc1c3396e9d5b1f2f717f9b")]
+[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+bb9d7035ed9e00c8ec7ab46c1277485c12cdc54d")]
 [assembly: System.Reflection.AssemblyProductAttribute("NaiveBayesProject")]
 [assembly: System.Reflection.AssemblyTitleAttribute("NaiveBayesProject")]
 [assembly: System.Reflection.AssemblyVersionAttribute("1.0.0.0")]
