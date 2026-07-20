@@ -1,0 +1,19 @@
+___pycache__
+.vs/
+bin/
+obj/## Visual Studio temporary files & user settings
+.vs/
+*.user
+*.userosscache
+*.sln.docstates
+
+## Build outputs
+[Bb]in/
+[Ob]j/
+[Ll]og/
+[Ll]ogs/
+
+## Python cache (if used in the same project)
+__pycache__/
+*.py[cod]
+*$py.class
