@@ -59,8 +59,6 @@ public class CsvHandler
         string baseDir = AppDomain.CurrentDomain.BaseDirectory;
         string path = Path.Combine(baseDir, "..", "..", "..", "input", filename);
         string[] allTitleValues = [];
-        string baseDir = AppDomain.CurrentDomain.BaseDirectory;
-        string path = Path.Combine(baseDir, "..", "..", "..", "input", fileName);
         using (StreamReader reader = new StreamReader(path))
         {
             string? line = reader.ReadLine();

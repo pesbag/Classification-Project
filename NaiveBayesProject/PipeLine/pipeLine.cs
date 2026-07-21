@@ -76,13 +76,15 @@ public class PipeLine
             }
             CsvHandler.WriteCsvFile(fixedTable);
         }
-        catch (FileNotFoundException e) 
+        catch (FileNotFoundException e)
         {
             Console.WriteLine(e.Message);
         }
         catch (FileEmptyException e)
         {
             Console.WriteLine(e.Message);
+        }
+    }
     public void InteractiveRunner()
     {
         Console.WriteLine("Please enter an input, enter white space to exit");
