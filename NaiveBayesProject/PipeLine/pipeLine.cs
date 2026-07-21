@@ -11,6 +11,7 @@ public class PipeLine
 {
     private readonly string TrainPath;
     private readonly string? CsvInput;
+    public NaiveBayesModel Model;
     public PipeLine(string[] args)
     {
         if (args.Length == 0)
@@ -37,14 +38,12 @@ public class PipeLine
         {
             throw new TooMuchArgumentException("Error: too mutch argouments in Command line");
         }
-    }
-    public void Runner()
-    {
         List<Dictionary<string, string>> loadModel = CsvHandler.CsvReader(TrainPath);
-        if (loadModel.Count == 0) { throw new InvalidOperationException("Error can not operate an empty data"); }
+        if (loadModel.Count == 0) { throw new InvalidOperationException("Error: can not operate an empty data"); }
+        Console.WriteLine($"Model trained on {loadModel.Count} rows");
         string targetColumns = CsvHandler.GetTargetColumnName(TrainPath);
-        NaiveBayesModel model = new NaiveBayesModel(loadModel, targetColumns);
-    }
+        Model = new NaiveBayesModel(loadModel, targetColumns);
+    } 
 
     public void CheckSuffixFile(string path)
     {
