@@ -15,13 +15,14 @@ public class Program
         {
             Console.WriteLine(ex.Message);
         }
-        catch(ArgumentException ex)
+        catch (ArgumentException ex)
         {
             Console.WriteLine(ex.Message);
         }
-        catch(FileNameFormatIllegal ex)
+        catch (FileNameFormatIllegal ex)
         {
             Console.WriteLine(ex.Message);
         }
+
     }
 }

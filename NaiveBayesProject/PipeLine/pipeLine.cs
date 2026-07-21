@@ -60,15 +60,22 @@ public class PipeLine
     }
     public void BatchRunner()
     {
-        List<Dictionary<string, string>> toFix = CsvHandler.CsvReader(CsvInput);
-        List<Dictionary<string, string>> fixedTable = new();
-        foreach (Dictionary<string, string> line in toFix)
+        try
         {
-            string answer = Model.Predict(line);
-            Dictionary<string, string> fixedLine = new Dictionary<string, string>();
-            fixedLine.Add(TargetColumns, answer);
-            fixedTable.Add(fixedLine);
+            List<Dictionary<string, string>> toFix = CsvHandler.CsvReader(CsvInput);
+            List<Dictionary<string, string>> fixedTable = new();
+            foreach (Dictionary<string, string> line in toFix)
+            {
+                string answer = Model.Predict(line);
+                Dictionary<string, string> fixedLine = new Dictionary<string, string>();
+                fixedLine.Add(TargetColumns, answer);
+                fixedTable.Add(fixedLine);
+            }
+            CsvHandler.WriteFile(fixedTable);
         }
-        CsvHandler.WriteFile(fixedTable);
+        catch (Exception e) 
+        {
+            Console.WriteLine(e.Message);
+        }
     }
 }

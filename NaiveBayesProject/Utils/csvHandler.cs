@@ -2,32 +2,43 @@
 using System.IO;
 using System.Collections.Generic;
 using System.Text;
+using NaiveBayesProject.Exceptions;
 using NaiveBayesProject.Interface;
 
 namespace NaiveBayesProject.Utils;
 public class CsvHandler
 {
-    public static List<Dictionary<string, string>> CsvReader(string path)
+    public static List<Dictionary<string, string>> CsvReader(string fileName)
     {
         string[] titleValues = [];
-        Dictionary<string, string> dictOfLine = new Dictionary<string, string>();
         List<Dictionary<string, string>> csvContent = new List<Dictionary<string, string>>();
+        string path = Path.Combine("input", fileName);
+        if (!File.Exists(path))
+        {
+            throw new FileNotFoundException($"The file '{path}' was not found.");
+        }
         using (StreamReader reader = new StreamReader(path))
         {
+
             string? line = reader.ReadLine();
+            if (new FileInfo(path).Length == 0)
+            {
+                throw new FileEmptyException("Error: empty file!");
+            }
             if (line != null)
             {
                 titleValues = line.Split(",");
             }
             while (!reader.EndOfStream)
             {
+                Dictionary<string, string> dictOfLine = new Dictionary<string, string>();
                 var NewLine = reader.ReadLine();
                 var values = NewLine.Split(",");
                 for (int i = 0; i < titleValues.Count(); i++)
                 {
                     dictOfLine[titleValues[i]] = values[i];
                 }
-                csvContent.Append(dictOfLine);
+                csvContent.Add(dictOfLine);
             }
         }
         return csvContent;
