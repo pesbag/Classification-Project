@@ -14,7 +14,7 @@ using System.Reflection;
 [assembly: System.Reflection.AssemblyCompanyAttribute("NaiveBayesProject")]
 [assembly: System.Reflection.AssemblyConfigurationAttribute("Debug")]
 [assembly: System.Reflection.AssemblyFileVersionAttribute("1.0.0.0")]
-[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+737c5ec8d92936c1e0c974ef51fca7699d818041")]
+[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+1c9bf9304ec0c83e23a55270a43161fbe69582ef")]
 [assembly: System.Reflection.AssemblyProductAttribute("NaiveBayesProject")]
 [assembly: System.Reflection.AssemblyTitleAttribute("NaiveBayesProject")]
 [assembly: System.Reflection.AssemblyVersionAttribute("1.0.0.0")]
