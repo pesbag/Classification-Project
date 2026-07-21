@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using System.Text;
 using NaiveBayesProject.Exceptions;
 using NaiveBayesProject.Interface;
+using NaiveBayesProject.Exceptions;
 
 namespace NaiveBayesProject.Utils;
 public class CsvHandler
@@ -43,9 +44,10 @@ public class CsvHandler
         }  
         return csvContent;
     }
-    public static string GetTargetColumnName(string path)
+    public static string GetTargetColumnName(string fileName)
     {
-        string[] titleValues =[] ;
+        string[] titleValues =[];
+        string path = Path.Combine("input", fileName);
         using (StreamReader reader = new StreamReader(path))
         {
 
@@ -56,11 +58,12 @@ public class CsvHandler
             }
         }
         int IndexOfLatestColumnName = titleValues.Length;
-        return titleValues[IndexOfLatestColumnName];
+        return titleValues[IndexOfLatestColumnName-1];
     } 
-    public static string[] GetFeatureColumnNames(string path)
+    public static string[] GetFeatureColumnNames(string fileName)
     {
         string[] allTitleValues = [];
+        string path = Path.Combine("input", fileName);
         using (StreamReader reader = new StreamReader(path))
         {
             

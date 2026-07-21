@@ -13,3 +13,18 @@ C:\Users\User\Desktop\הכשרה\Weekend projects\Classification-Project\NaiveBa
 C:\Users\User\Desktop\הכשרה\Weekend projects\Classification-Project\NaiveBayesProject\obj\Debug\net10.0\NaiveBayesProject.pdb
 C:\Users\User\Desktop\הכשרה\Weekend projects\Classification-Project\NaiveBayesProject\obj\Debug\net10.0\NaiveBayesProject.genruntimeconfig.cache
 C:\Users\User\Desktop\הכשרה\Weekend projects\Classification-Project\NaiveBayesProject\obj\Debug\net10.0\ref\NaiveBayesProject.dll
+C:\Users\bgdps\C# Programing\Predictioin project\NaiveBayesProject\bin\Debug\net10.0\NaiveBayesProject.exe
+C:\Users\bgdps\C# Programing\Predictioin project\NaiveBayesProject\bin\Debug\net10.0\NaiveBayesProject.deps.json
+C:\Users\bgdps\C# Programing\Predictioin project\NaiveBayesProject\bin\Debug\net10.0\NaiveBayesProject.runtimeconfig.json
+C:\Users\bgdps\C# Programing\Predictioin project\NaiveBayesProject\bin\Debug\net10.0\NaiveBayesProject.dll
+C:\Users\bgdps\C# Programing\Predictioin project\NaiveBayesProject\bin\Debug\net10.0\NaiveBayesProject.pdb
+C:\Users\bgdps\C# Programing\Predictioin project\NaiveBayesProject\obj\Debug\net10.0\NaiveBayesProject.GeneratedMSBuildEditorConfig.editorconfig
+C:\Users\bgdps\C# Programing\Predictioin project\NaiveBayesProject\obj\Debug\net10.0\NaiveBayesProject.AssemblyInfoInputs.cache
+C:\Users\bgdps\C# Programing\Predictioin project\NaiveBayesProject\obj\Debug\net10.0\NaiveBayesProject.AssemblyInfo.cs
+C:\Users\bgdps\C# Programing\Predictioin project\NaiveBayesProject\obj\Debug\net10.0\NaiveBayesProject.csproj.CoreCompileInputs.cache
+C:\Users\bgdps\C# Programing\Predictioin project\NaiveBayesProject\obj\Debug\net10.0\NaiveBayesProject.sourcelink.json
+C:\Users\bgdps\C# Programing\Predictioin project\NaiveBayesProject\obj\Debug\net10.0\NaiveBayesProject.dll
+C:\Users\bgdps\C# Programing\Predictioin project\NaiveBayesProject\obj\Debug\net10.0\refint\NaiveBayesProject.dll
+C:\Users\bgdps\C# Programing\Predictioin project\NaiveBayesProject\obj\Debug\net10.0\NaiveBayesProject.pdb
+C:\Users\bgdps\C# Programing\Predictioin project\NaiveBayesProject\obj\Debug\net10.0\NaiveBayesProject.genruntimeconfig.cache
+C:\Users\bgdps\C# Programing\Predictioin project\NaiveBayesProject\obj\Debug\net10.0\ref\NaiveBayesProject.dll
