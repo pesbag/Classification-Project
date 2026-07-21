@@ -12,6 +12,8 @@ public class PipeLine
     private readonly string TrainPath;
     private readonly string? CsvInput;
     public NaiveBayesModel Model;
+    public List<Dictionary<string, string>> LoadModel;
+    string TargetColumns;
     public PipeLine(string[] args)
     {
         if (args.Length == 0)
@@ -38,13 +40,13 @@ public class PipeLine
         {
             throw new TooMuchArgumentException("Error: too mutch argouments in Command line");
         }
-        List<Dictionary<string, string>> loadModel = CsvHandler.CsvReader(TrainPath);
-        if (loadModel.Count == 0) { throw new InvalidOperationException("Error: can not operate an empty data"); }
-        Console.WriteLine($"Model trained on {loadModel.Count} rows");
-        string targetColumns = CsvHandler.GetTargetColumnName(TrainPath);
-        Model = new NaiveBayesModel(loadModel, targetColumns);
-    } 
-
+        LoadModel = CsvHandler.CsvReader(TrainPath);
+        if (LoadModel.Count == 0) { throw new InvalidOperationException("Error can not operate an empty data"); }
+        Console.WriteLine($"Model trained on {LoadModel.Count} rows");
+        TargetColumns = CsvHandler.GetTargetColumnName(TrainPath);
+        Model = new NaiveBayesModel(LoadModel, TargetColumns);
+    }
+    
     public void CheckSuffixFile(string path)
     {
         if (!path.EndsWith(".csv"))
@@ -58,6 +60,22 @@ public class PipeLine
     }
     public void BatchRunner()
     {
-        
+        try
+        {
+            List<Dictionary<string, string>> toFix = CsvHandler.CsvReader(CsvInput);
+            List<Dictionary<string, string>> fixedTable = new();
+            foreach (Dictionary<string, string> line in toFix)
+            {
+                string answer = Model.Predict(line);
+                Dictionary<string, string> fixedLine = new Dictionary<string, string>();
+                fixedLine.Add(TargetColumns, answer);
+                fixedTable.Add(fixedLine);
+            }
+            CsvHandler.WriteFile(fixedTable);
+        }
+        catch (Exception e) 
+        {
+            Console.WriteLine(e.Message);
+        }
     }
 }

@@ -2,6 +2,7 @@
 using System.IO;
 using System.Collections.Generic;
 using System.Text;
+using NaiveBayesProject.Exceptions;
 using NaiveBayesProject.Interface;
 using NaiveBayesProject.Exceptions;
 
@@ -12,13 +13,14 @@ public class CsvHandler
     {
         string[] titleValues = [];
         List<Dictionary<string, string>> csvContent = new List<Dictionary<string, string>>();
-        string path =Path.Combine("input",fileName);
+        string path = Path.Combine("input", fileName);
         if (!File.Exists(path))
         {
             throw new FileNotFoundException($"The file '{path}' was not found.");
         }
         using (StreamReader reader = new StreamReader(path))
         {
+
             string? line = reader.ReadLine();
             if (new FileInfo(path).Length == 0)
             {
@@ -39,7 +41,7 @@ public class CsvHandler
                 }
                 csvContent.Add(dictOfLine);
             }
-        }
+        }  
         return csvContent;
     }
     public static string GetTargetColumnName(string fileName)
@@ -48,6 +50,7 @@ public class CsvHandler
         string path = Path.Combine("input", fileName);
         using (StreamReader reader = new StreamReader(path))
         {
+
             string? line = reader.ReadLine();
             if (line != null)
             {
@@ -75,6 +78,20 @@ public class CsvHandler
                 onlyFeatureVaules[i] = allTitleValues[i];
             }
             return onlyFeatureVaules;
+        }
+    }
+    public static void WriteFile(List<Dictionary<string, string>> toWrite)
+    {
+        if (toWrite.Count == 0)
+            return;
+        string path = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "output", "fixedTable.csv");
+        using (StreamWriter writer = new StreamWriter(path))
+        {
+            writer.WriteLine(string.Join(",", toWrite[0].Keys));
+            foreach (Dictionary<string, string> row in toWrite)
+            {
+                writer.WriteLine(string.Join(",",row.Values.Select(value => $"\"{value.Replace("\"", "\"\"")}\"")));
+            }
         }
     }
 }
