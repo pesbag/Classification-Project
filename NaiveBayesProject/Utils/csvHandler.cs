@@ -40,7 +40,7 @@ public class CsvHandler
                 }
                 csvContent.Add(dictOfLine);
             }
-        }
+        }  
         return csvContent;
     }
     public static string GetTargetColumnName(string path)
@@ -48,6 +48,7 @@ public class CsvHandler
         string[] titleValues =[] ;
         using (StreamReader reader = new StreamReader(path))
         {
+
             string? line = reader.ReadLine();
             if (line != null)
             {
