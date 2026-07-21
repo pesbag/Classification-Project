@@ -83,6 +83,33 @@ public class PipeLine
         catch (FileEmptyException e)
         {
             Console.WriteLine(e.Message);
+    public void InteractiveRunner()
+    {
+        Console.WriteLine("Please enter an input, enter white space to exit");
+        bool stopProgram = false;
+        Dictionary<string, string> lineDict;
+        while (!stopProgram)
+        {
+            lineDict = new Dictionary<string, string>();
+            for (int i=0;i<FeatureColumns.Length;i++)
+            {
+                Console.WriteLine($"Enter {FeatureColumns[i]}");
+                string? input = Console.ReadLine();
+                if (string.IsNullOrWhiteSpace(input))
+                {
+                    Console.WriteLine("Stop the program...");
+                    stopProgram = true;
+                    break;
+                }
+                lineDict[FeatureColumns[i]] = char.ToUpper(input[0]) + input[1..];
+            }
+            if (!stopProgram)
+            {
+                string result = Model.Predict(lineDict);
+                lineDict[TargetColumns] = result;
+                string resultMultiLine = string.Join("\n", lineDict.Select(k => $"{k.Key}: {k.Value}"));
+                Console.WriteLine(resultMultiLine);
+            }
         }
     }
 }
