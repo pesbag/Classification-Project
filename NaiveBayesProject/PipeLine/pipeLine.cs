@@ -4,6 +4,7 @@ using NaiveBayesProject.Utils;
 using System;
 using System.Collections.Generic;
 using System.Text;
+using System.IO;
 
 namespace NaiveBayesProject.pipeline;
 
@@ -56,6 +57,34 @@ public class PipeLine
             throw new FileNameFormatIllegal("Error: input file should end with .csv");
         }
     }
+
+    public void BatchRunner()
+    {
+        try
+        {
+            List<Dictionary<string, string>> toFix = CsvHandler.CsvReader(CsvInput);
+            List<Dictionary<string, string>> fixedTable = new();
+            int rowcount = 1;
+            foreach (Dictionary<string, string> line in toFix)
+            {
+                string answer = Model.Predict(line);
+                Dictionary<string, string> fixedLine = line;
+                fixedLine.Add(TargetColumns, answer);
+                fixedTable.Add(fixedLine);
+                Console.WriteLine($"row {rowcount}: {string.Join(", ", line.Values)} -> {answer}");
+                rowcount++;
+            }
+            CsvHandler.WriteCsvFile(fixedTable);
+        }
+        catch (FileNotFoundException e)
+        {
+            Console.WriteLine(e.Message);
+        }
+        catch (FileEmptyException e)
+        {
+            Console.WriteLine(e.Message);
+        }
+    }
     public void InteractiveRunner()
     {
         Console.WriteLine("Please enter an input, enter white space to exit");
@@ -86,3 +115,4 @@ public class PipeLine
         }
     }
 }
+
