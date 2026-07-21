@@ -13,7 +13,8 @@ public class PipeLine
     private readonly string? CsvInput;
     public NaiveBayesModel Model;
     public List<Dictionary<string, string>> LoadModel;
-    string TargetColumns;
+    public string TargetColumns;
+    public string[] FeatureColumns;
     public PipeLine(string[] args)
     {
         if (args.Length == 0)
@@ -44,6 +45,7 @@ public class PipeLine
         if (LoadModel.Count == 0) { throw new InvalidOperationException("Error can not operate an empty data"); }
         Console.WriteLine($"Model trained on {LoadModel.Count} rows");
         TargetColumns = CsvHandler.GetTargetColumnName(TrainPath);
+        FeatureColumns = CsvHandler.GetFeatureColumnNames(TrainPath);
         Model = new NaiveBayesModel(LoadModel, TargetColumns);
     }
     
@@ -56,26 +58,31 @@ public class PipeLine
     }
     public void InteractiveRunner()
     {
-        
-    }
-    public void BatchRunner()
-    {
-        try
+        Console.WriteLine("Please enter an input, enter white space to exit");
+        bool stopProgram = false;
+        Dictionary<string, string> lineDict;
+        while (!stopProgram)
         {
-            List<Dictionary<string, string>> toFix = CsvHandler.CsvReader(CsvInput);
-            List<Dictionary<string, string>> fixedTable = new();
-            foreach (Dictionary<string, string> line in toFix)
+            lineDict = new Dictionary<string, string>();
+            for (int i=0;i<FeatureColumns.Length;i++)
             {
-                string answer = Model.Predict(line);
-                Dictionary<string, string> fixedLine = new Dictionary<string, string>();
-                fixedLine.Add(TargetColumns, answer);
-                fixedTable.Add(fixedLine);
+                Console.WriteLine($"Enter {FeatureColumns[i]}");
+                string? input = Console.ReadLine();
+                if (string.IsNullOrWhiteSpace(input))
+                {
+                    Console.WriteLine("Stop the program...");
+                    stopProgram = true;
+                    break;
+                }
+                lineDict[FeatureColumns[i]] = char.ToUpper(input[0]) + input[1..];
             }
-            CsvHandler.WriteFile(fixedTable);
-        }
-        catch (Exception e) 
-        {
-            Console.WriteLine(e.Message);
+            if (!stopProgram)
+            {
+                string result = Model.Predict(lineDict);
+                lineDict[TargetColumns] = result;
+                string resultMultiLine = string.Join("\n", lineDict.Select(k => $"{k.Key}: {k.Value}"));
+                Console.WriteLine(resultMultiLine);
+            }
         }
     }
 }

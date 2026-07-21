@@ -4,8 +4,6 @@ using System.Collections.Generic;
 using System.Text;
 using NaiveBayesProject.Exceptions;
 using NaiveBayesProject.Interface;
-using NaiveBayesProject.Exceptions;
-
 namespace NaiveBayesProject.Utils;
 public class CsvHandler
 {
@@ -13,10 +11,11 @@ public class CsvHandler
     {
         string[] titleValues = [];
         List<Dictionary<string, string>> csvContent = new List<Dictionary<string, string>>();
-        string path = Path.Combine("input", fileName);
+        string baseDir = AppDomain.CurrentDomain.BaseDirectory;
+        string path = Path.Combine(baseDir, "..", "..", "..", "input", fileName);
         if (!File.Exists(path))
         {
-            throw new FileNotFoundException($"The file '{path}' was not found.");
+            throw new FileNotFoundException($"The file '{path}' was not found");
         }
         using (StreamReader reader = new StreamReader(path))
         {
@@ -47,7 +46,8 @@ public class CsvHandler
     public static string GetTargetColumnName(string fileName)
     {
         string[] titleValues =[];
-        string path = Path.Combine("input", fileName);
+        string baseDir = AppDomain.CurrentDomain.BaseDirectory;
+        string path = Path.Combine(baseDir, "..", "..", "..", "input", fileName);
         using (StreamReader reader = new StreamReader(path))
         {
 
@@ -63,10 +63,10 @@ public class CsvHandler
     public static string[] GetFeatureColumnNames(string fileName)
     {
         string[] allTitleValues = [];
-        string path = Path.Combine("input", fileName);
+        string baseDir = AppDomain.CurrentDomain.BaseDirectory;
+        string path = Path.Combine(baseDir, "..", "..", "..", "input", fileName);
         using (StreamReader reader = new StreamReader(path))
-        {
-            
+        {          
             string? line = reader.ReadLine();
             if (line != null)
             {
@@ -78,20 +78,6 @@ public class CsvHandler
                 onlyFeatureVaules[i] = allTitleValues[i];
             }
             return onlyFeatureVaules;
-        }
-    }
-    public static void WriteFile(List<Dictionary<string, string>> toWrite)
-    {
-        if (toWrite.Count == 0)
-            return;
-        string path = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "output", "fixedTable.csv");
-        using (StreamWriter writer = new StreamWriter(path))
-        {
-            writer.WriteLine(string.Join(",", toWrite[0].Keys));
-            foreach (Dictionary<string, string> row in toWrite)
-            {
-                writer.WriteLine(string.Join(",",row.Values.Select(value => $"\"{value.Replace("\"", "\"\"")}\"")));
-            }
         }
     }
 }

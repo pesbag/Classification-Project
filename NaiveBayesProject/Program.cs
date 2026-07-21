@@ -11,6 +11,14 @@ public class Program
         try
         {
             PipeLine pipeLine = new PipeLine(args);
+            if (args.Length == 1)
+            {
+                pipeLine.InteractiveRunner();
+            }
+            else
+            {
+                pipeLine.BatchRunner();
+            }
         }
         catch (TooMuchArgumentException ex)
         {
