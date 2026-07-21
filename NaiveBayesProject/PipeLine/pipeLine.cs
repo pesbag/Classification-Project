@@ -4,6 +4,7 @@ using NaiveBayesProject.Utils;
 using System;
 using System.Collections.Generic;
 using System.Text;
+using System.IO;
 
 namespace NaiveBayesProject.pipeline;
 
@@ -13,7 +14,8 @@ public class PipeLine
     private readonly string? CsvInput;
     public NaiveBayesModel Model;
     public List<Dictionary<string, string>> LoadModel;
-    string TargetColumns;
+    public string TargetColumns;
+    public string[] FeatureColumns;
     public PipeLine(string[] args)
     {
         if (args.Length == 0)
@@ -44,6 +46,7 @@ public class PipeLine
         if (LoadModel.Count == 0) { throw new InvalidOperationException("Error can not operate an empty data"); }
         Console.WriteLine($"Model trained on {LoadModel.Count} rows");
         TargetColumns = CsvHandler.GetTargetColumnName(TrainPath);
+        FeatureColumns = CsvHandler.GetFeatureColumnNames(TrainPath);
         Model = new NaiveBayesModel(LoadModel, TargetColumns);
     }
     
@@ -54,28 +57,33 @@ public class PipeLine
             throw new FileNameFormatIllegal("Error: input file should end with .csv");
         }
     }
-    public void InteractiveRunner()
-    {
-        
-    }
+
     public void BatchRunner()
     {
         try
         {
             List<Dictionary<string, string>> toFix = CsvHandler.CsvReader(CsvInput);
             List<Dictionary<string, string>> fixedTable = new();
+            int rowcount = 1;
             foreach (Dictionary<string, string> line in toFix)
             {
                 string answer = Model.Predict(line);
-                Dictionary<string, string> fixedLine = new Dictionary<string, string>();
+                Dictionary<string, string> fixedLine = line;
                 fixedLine.Add(TargetColumns, answer);
                 fixedTable.Add(fixedLine);
+                Console.WriteLine($"row {rowcount}: {string.Join(", ", line.Values)} -> {answer}");
+                rowcount++;
             }
-            CsvHandler.WriteFile(fixedTable);
+            CsvHandler.WriteCsvFile(fixedTable);
         }
-        catch (Exception e) 
+        catch (FileNotFoundException e) 
+        {
+            Console.WriteLine(e.Message);
+        }
+        catch (FileEmptyException e)
         {
             Console.WriteLine(e.Message);
         }
     }
 }
+
