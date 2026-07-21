@@ -1,9 +1,5 @@
 using NaiveBayesProject.Exceptions;
 using NaiveBayesProject.pipeline;
-using NaiveBayesProject.Utils;
-using System;
-using NaiveBayesProject.Utils;
-//using NaiveBayesProject.input;
 namespace NaiveBayesProject;
 public class Program
 {
@@ -16,9 +12,13 @@ public class Program
             {
                 pipeLine.InteractiveRunner();
             }
-            else
+            else if (args.Length == 2) 
             {
                 pipeLine.BatchRunner();
+            }
+            else
+            {
+                throw new TooMuchArgumentException("Maximum 2 files");
             }
         }
         catch (TooMuchArgumentException ex)
@@ -37,15 +37,5 @@ public class Program
         {
             Console.WriteLine(ex.Message);
         }
-
-        //Console.WriteLine("Enter to main");
-        //List<Dictionary<string, string>> loadModel=CsvHandler.CsvReader(args[0]);
-        //Console.WriteLine(args[0]);
-        //Console.WriteLine("load model in main");
-        //Console.WriteLine($"length of list: {loadModel.Count}");
-        //foreach (var x in loadModel)
-        //{
-        //    Console.WriteLine(x.ToString());
-        //}
     }
 }

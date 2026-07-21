@@ -1,18 +1,11 @@
-using System.Collections.Generic;
 namespace Model
 {
-
     public class NaiveBayesModel
     {
         public List<string> Labels { get; }
-
         public Dictionary<string, double> Priors { get; }
-
         public Dictionary<(string Label, string Feature, string Value), double> Cond { get; }
-
         public Dictionary<(string Label, string Feature), double> Unseen { get; }
-
-
         public NaiveBayesModel(List<Dictionary<string, string>> rows, string targetColumn)
         {
             List<string> labels = rows.Select(row => row[targetColumn]).Distinct().ToList();
@@ -40,9 +33,6 @@ namespace Model
             Cond = cond;
             Unseen = unseen;
         }
-
-
-
         public string Predict(Dictionary<string, string> sample)
         {
             string? bestLabel = null;

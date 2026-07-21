@@ -1,13 +1,8 @@
 ﻿using Model;
 using NaiveBayesProject.Exceptions;
 using NaiveBayesProject.Utils;
-using System;
-using System.Collections.Generic;
-using System.Text;
-using System.IO;
-
+using NaiveBayesProject.Interface;
 namespace NaiveBayesProject.pipeline;
-
 public class PipeLine
 {
     private readonly string TrainPath;
@@ -42,11 +37,11 @@ public class PipeLine
         {
             throw new TooMuchArgumentException("Error: too mutch argouments in Command line");
         }
-        LoadModel = CsvHandler.CsvReader(TrainPath);
+        LoadModel = ReadFromCsv.Read(TrainPath);
         if (LoadModel.Count == 0) { throw new InvalidOperationException("Error can not operate an empty data"); }
         Console.WriteLine($"Model trained on {LoadModel.Count} rows");
-        TargetColumns = CsvHandler.GetTargetColumnName(TrainPath);
-        FeatureColumns = CsvHandler.GetFeatureColumnNames(TrainPath);
+        TargetColumns = GetTargetColumnName.Get(TrainPath);
+        FeatureColumns = GetFeatureColumnNames.Get(TrainPath);
         Model = new NaiveBayesModel(LoadModel, TargetColumns);
     }
     
@@ -57,12 +52,11 @@ public class PipeLine
             throw new FileNameFormatIllegal("Error: input file should end with .csv");
         }
     }
-
     public void BatchRunner()
     {
         try
         {
-            List<Dictionary<string, string>> toFix = CsvHandler.CsvReader(CsvInput);
+            List<Dictionary<string, string>> toFix = ReadFromCsv.Read(CsvInput!);
             List<Dictionary<string, string>> fixedTable = new();
             int rowcount = 1;
             foreach (Dictionary<string, string> line in toFix)
@@ -74,7 +68,7 @@ public class PipeLine
                 Console.WriteLine($"row {rowcount}: {string.Join(", ", line.Values)} -> {answer}");
                 rowcount++;
             }
-            CsvHandler.WriteCsvFile(fixedTable);
+            WriteCsvFile.Write(fixedTable);
         }
         catch (FileNotFoundException e)
         {

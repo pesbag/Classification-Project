@@ -26,8 +26,8 @@ public class CsvHandler
             while (!reader.EndOfStream)
             {
                 Dictionary<string, string> dictOfLine = new Dictionary<string, string>();
-                var NewLine = reader.ReadLine();
-                var values = NewLine.Split(",");
+                string? NewLine = reader.ReadLine();
+                string[] values = NewLine!.Split(",");
                 for (int i = 0; i < titleValues.Count(); i++)
                 {
                     dictOfLine[titleValues[i]] = values[i];
@@ -78,7 +78,7 @@ public class CsvHandler
     {
         if (toWrite.Count == 0)
             return;
-        string path = Path.Combine(Directory.GetParent(AppDomain.CurrentDomain.BaseDirectory).Parent.Parent.Parent.FullName,"output","fixedTable.csv");
+        string path = Path.Combine(Directory.GetParent(AppDomain.CurrentDomain.BaseDirectory)!.Parent!.Parent!.Parent!.FullName,"output","predictions.csv");
         using (StreamWriter writer = new StreamWriter(path))
         {
             writer.WriteLine(string.Join(",", toWrite[0].Keys));
