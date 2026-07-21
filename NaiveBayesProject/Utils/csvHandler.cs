@@ -65,4 +65,18 @@ public class CsvHandler
             return onlyFeatureVaules;
         }
     }
+    public static void WriteFile(List<Dictionary<string, string>> toWrite)
+    {
+        if (toWrite.Count == 0)
+            return;
+        string path = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "output", "fixedTable.csv");
+        using (StreamWriter writer = new StreamWriter(path))
+        {
+            writer.WriteLine(string.Join(",", toWrite[0].Keys));
+            foreach (Dictionary<string, string> row in toWrite)
+            {
+                writer.WriteLine(string.Join(",",row.Values.Select(value => $"\"{value.Replace("\"", "\"\"")}\"")));
+            }
+        }
+    }
 }

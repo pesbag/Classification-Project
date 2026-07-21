@@ -11,6 +11,9 @@ public class PipeLine
 {
     private readonly string TrainPath;
     private readonly string? CsvInput;
+    public NaiveBayesModel Model;
+    public List<Dictionary<string, string>> LoadModel;
+    string TargetColumns;
     public PipeLine(string[] args)
     {
         if (args.Length == 0)
@@ -37,15 +40,13 @@ public class PipeLine
         {
             throw new TooMuchArgumentException("Error: too mutch argouments in Command line");
         }
+        LoadModel = CsvHandler.CsvReader(TrainPath);
+        if (LoadModel.Count == 0) { throw new InvalidOperationException("Error can not operate an empty data"); }
+        Console.WriteLine($"Model trained on {LoadModel.Count} rows");
+        TargetColumns = CsvHandler.GetTargetColumnName(TrainPath);
+        Model = new NaiveBayesModel(LoadModel, TargetColumns);
     }
-    public void Runner()
-    {
-        List<Dictionary<string, string>> loadModel = CsvHandler.CsvReader(TrainPath);
-        if (loadModel.Count == 0) { throw new InvalidOperationException("Error can not operate an empty data"); }
-        string targetColumns = CsvHandler.GetTargetColumnName(TrainPath);
-        NaiveBayesModel model = new NaiveBayesModel(loadModel, targetColumns);
-    }
-
+    
     public void CheckSuffixFile(string path)
     {
         if (!path.EndsWith(".csv"))
@@ -59,6 +60,15 @@ public class PipeLine
     }
     public void BatchRunner()
     {
-        
+        List<Dictionary<string, string>> toFix = CsvHandler.CsvReader(CsvInput);
+        List<Dictionary<string, string>> fixedTable = new();
+        foreach (Dictionary<string, string> line in toFix)
+        {
+            string answer = Model.Predict(line);
+            Dictionary<string, string> fixedLine = new Dictionary<string, string>();
+            fixedLine.Add(TargetColumns, answer);
+            fixedTable.Add(fixedLine);
+        }
+        CsvHandler.WriteFile(fixedTable);
     }
 }
