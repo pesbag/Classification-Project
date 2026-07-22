@@ -1,4 +1,3 @@
-using System;
 namespace NaiveBayesProject.Exceptions;
 public class TooMuchArgumentException:Exception
 {

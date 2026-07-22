@@ -12,7 +12,7 @@ namespace NaiveBayesProject.Utils
             string path = Path.Combine(baseDir, "..", "..", "..", "input", fileName);
             if (!File.Exists(path))
             {
-                throw new FileNotFoundException($"The file '{path}' was not found");
+                throw new FileNotFoundException($"The file '{fileName}' was not found");
             }
             using (StreamReader reader = new StreamReader(path))
             {

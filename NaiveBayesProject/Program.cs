@@ -1,9 +1,11 @@
 using NaiveBayesProject.Exceptions;
+using NaiveBayesProject.Interface;
 using NaiveBayesProject.pipeline;
 namespace NaiveBayesProject;
+
 public class Program
 {
-    public static void Main(string[] args) 
+    public static void Main(string[] args)
     {
         try
         {
@@ -12,7 +14,7 @@ public class Program
             {
                 pipeLine.InteractiveRunner();
             }
-            else if (args.Length == 2) 
+            else if (args.Length == 2)
             {
                 pipeLine.BatchRunner();
             }
@@ -39,3 +41,4 @@ public class Program
         }
     }
 }
+

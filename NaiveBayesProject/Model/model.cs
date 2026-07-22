@@ -1,6 +1,10 @@
 namespace Model
 {
-    public class NaiveBayesModel
+    public abstract class ClassificationModel
+    {
+        public abstract string Predict(Dictionary<string, string> sample);
+    }
+    public class NaiveBayesModel : ClassificationModel
     {
         public List<string> Labels { get; }
         public Dictionary<string, double> Priors { get; }
@@ -33,7 +37,7 @@ namespace Model
             Cond = cond;
             Unseen = unseen;
         }
-        public string Predict(Dictionary<string, string> sample)
+        public override string Predict(Dictionary<string, string> sample)
         {
             string? bestLabel = null;
             double bestScore = double.MinValue;
