@@ -63,9 +63,9 @@ public class PipeLine
             {
                 string answer = Model.Predict(line);
                 Dictionary<string, string> fixedLine = line;
+                Console.WriteLine($"row {rowcount}: {string.Join(", ", line.Values)} -> {answer}");
                 fixedLine.Add(TargetColumns, answer);
                 fixedTable.Add(fixedLine);
-                Console.WriteLine($"row {rowcount}: {string.Join(", ", line.Values)} -> {answer}");
                 rowcount++;
             }
             WriteCsvFile.Write(fixedTable);

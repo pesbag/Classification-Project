@@ -8,7 +8,7 @@ namespace NaiveBayesProject.Utils
         public static void Write(List<Dictionary<string, string>> toWrite)
         {
             string baseDir = AppDomain.CurrentDomain.BaseDirectory;
-            string path = Path.Combine(baseDir, "..", "..", "..", "output", "output.csv");
+            string path = Path.Combine(baseDir, "..", "..", "..", "output", "predictions.csv");
             using (StreamWriter writer = new StreamWriter(path))
             {
                 List<string> keys = toWrite[0].Keys.ToList();
